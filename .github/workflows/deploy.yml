@@ -30,34 +30,29 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Setup Database & Seed
-        run: |
-          npm run db:push
-          npm run db:seed
+      - name: Verify SQLite Database Exists
+        run: ls -la sqlite.db
         env:
           DATABASE_URL: "file:./sqlite.db"
-          BETTER_AUTH_SECRET: "github-pages-build-secret"
-          BETTER_AUTH_URL: "http://localhost:3000"
-          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
 
       - name: Isolate Public Pages for Static Export
-        # Memindahkan sementara route API & Admin agar Next.js static export tidak error
         run: |
           mkdir -p .temp_app
-          mv src/app/api .temp_app/api
-          mv src/app/admin .temp_app/admin
+          [ -d "src/app/api" ] && mv src/app/api .temp_app/api || true
+          [ -d "src/app/admin" ] && mv src/app/admin .temp_app/admin || true
 
       - name: Build & Export Static Site
         run: npm run build
         env:
           GITHUB_PAGES: "true"
           NEXT_EXPORT: "true"
+          DATABASE_URL: "file:./sqlite.db"
 
       - name: Restore API & Admin folders
         if: always()
         run: |
-          mv .temp_app/api src/app/api
-          mv .temp_app/admin src/app/admin
+          [ -d ".temp_app/api" ] && mv .temp_app/api src/app/api || true
+          [ -d ".temp_app/admin" ] && mv .temp_app/admin src/app/admin || true
           rm -rf .temp_app
 
       - name: Add .nojekyll
@@ -69,9 +64,6 @@ jobs:
           path: ./out
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:

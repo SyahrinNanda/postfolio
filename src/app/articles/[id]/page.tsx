@@ -9,7 +9,7 @@ import { db } from '@/db';
 import { articles as dbArticlesTable } from '@/db/schema';
 import { eq, ne, and, desc } from 'drizzle-orm';
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 interface Props {
   params: Promise<{ id: string }>;
