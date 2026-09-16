@@ -3,11 +3,12 @@ import Reveal from '@/components/Reveal';
 import BodyStyler from '@/components/BodyStyler';
 import type { Metadata } from 'next';
 import { db } from '@/db';
-import { DEFAULT_PROFILE, ProfileData } from '@/components/admin/AdminContext';
+import { profiles as dbProfilesTable } from '@/db/schema';
+import { DEFAULT_PROFILE, ProfileData } from '@/lib/data/profile';
 
 async function getProfileData(): Promise<ProfileData> {
   try {
-    const p = await db.query.profiles.findFirst();
+    const p = await db.select().from(dbProfilesTable).get();
     if (p) {
       return {
         fullName: p.fullName || DEFAULT_PROFILE.fullName,
@@ -113,11 +114,11 @@ export default async function About() {
                     fontWeight: 800,
                   }}
                 >
-                  {profile.fullName.slice(0, 2).toUpperCase()}
+                  {(profile.fullName || DEFAULT_PROFILE.fullName).slice(0, 2).toUpperCase()}
                 </div>
               )}
               <figcaption className="portrait-caption">
-                <span>{profile.fullName}</span>
+                <span>{profile.fullName || DEFAULT_PROFILE.fullName}</span>
                 <span>{profile.title.toUpperCase()}</span>
               </figcaption>
             </Reveal>
