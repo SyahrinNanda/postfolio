@@ -26,3 +26,4 @@ export function getAssetPath(path: string | null | undefined): string {
 
   return `${basePath}${cleanPath}`;
 }
+
