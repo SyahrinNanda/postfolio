@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { db } from '@/db';
 import { profiles as dbProfilesTable } from '@/db/schema';
 import { DEFAULT_PROFILE, ProfileData } from '@/lib/data/profile';
+import { getAssetPath } from '@/lib/assets';
 
 async function getProfileData(): Promise<ProfileData> {
   try {
@@ -96,7 +97,7 @@ export default async function About() {
             <Reveal as="figure" className="portrait-card panel">
               {profile.photo ? (
                 <img
-                  src={profile.photo}
+                  src={getAssetPath(profile.photo)}
                   width="560"
                   height="420"
                   alt={`Foto profil ${profile.fullName}`}
@@ -205,7 +206,7 @@ export default async function About() {
                 <Link className="button button-ghost" href="/contact">
                   Hubungi saya <span aria-hidden="true">↗</span>
                 </Link>
-                <a className="button button-ghost" href="/assets/syahrin-nanda-cv.pdf" download>
+                <a className="button button-ghost" href={getAssetPath("/assets/syahrin-nanda-cv.pdf")} download>
                   Unduh CV <span aria-hidden="true">↓</span>
                 </a>
               </div>

@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import AssistantPanel from '@/components/AssistantPanel';
 import ScrollReveal from '@/components/ScrollReveal';
 import AmbientLights from '@/components/AmbientLights';
+import { getAssetPath } from '@/lib/assets';
 
 import './globals-styles.css';
 import './globals-public.css';
@@ -16,16 +17,19 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+const faviconUrl = getAssetPath('/favicon.svg');
+const manifestUrl = getAssetPath('/manifest.webmanifest');
+
 export const metadata: Metadata = {
   title: "As'syahrin Nanda — Software Engineer",
   description: "Portfolio As'syahrin Nanda, software engineer yang membangun produk digital andal dan terukur.",
-  manifest: '/manifest.webmanifest',
+  manifest: manifestUrl,
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: faviconUrl, type: 'image/svg+xml' },
     ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    shortcut: faviconUrl,
+    apple: faviconUrl,
   },
   openGraph: {
     title: "As'syahrin Nanda — Software Engineer",

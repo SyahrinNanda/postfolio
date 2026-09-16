@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { getAssetPath } from '@/lib/assets';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -95,7 +96,7 @@ export default function Footer() {
             <div>
               <span className="footer-heading">Aksi</span>
               <div className="footer-links">
-                <a href="/assets/syahrin-nanda-cv.pdf" download>
+                <a href={getAssetPath("/assets/syahrin-nanda-cv.pdf")} download>
                   Unduh CV demo
                 </a>
                 <Link href="/contact">Hubungi saya</Link>
@@ -195,7 +196,7 @@ export default function Footer() {
             <span className="footer-heading">Aksi &amp; Tautan</span>
             <div className="footer-links">
               <Link href="/cv">Lihat CV</Link>
-              <a href="/assets/syahrin-nanda-cv.pdf" download>
+              <a href={getAssetPath("/assets/syahrin-nanda-cv.pdf")} download>
                 Unduh CV demo
               </a>
               <Link href="/contact">Hubungi saya</Link>

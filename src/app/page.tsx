@@ -3,6 +3,7 @@ import Reveal from '@/components/Reveal';
 import ContactForm from '@/components/ContactForm';
 import HomeProjects, { HomeProjectItem } from '@/components/HomeProjects';
 import { db } from '@/db';
+import { getAssetPath } from '@/lib/assets';
 import {
   projects as dbProjectsTable,
   experiences as dbExperiencesTable,
@@ -199,8 +200,9 @@ export default async function Home() {
   const tickerText =
     siteSettings.tickerText ||
     'PRODUCT ENGINEERING ✦ SYSTEM DESIGN ✦ FRONTEND ✦ BACKEND ✦ CLOUD ✦ PRODUCT ENGINEERING ✦ SYSTEM DESIGN ✦ FRONTEND ✦ BACKEND ✦ CLOUD ✦';
-  const cvDownloadUrl =
-    dbProfile?.cvFileUrl || siteSettings.cvFileUrl || '/assets/syahrin-nanda-cv.pdf';
+  const cvDownloadUrl = getAssetPath(
+    dbProfile?.cvFileUrl || siteSettings.cvFileUrl || '/assets/syahrin-nanda-cv.pdf'
+  );
 
   const capabilities: Array<{
     id: string;
@@ -329,7 +331,7 @@ export default async function Home() {
               <h2 id="about-title">{dbProfile?.aboutHeadline || 'Lebih dari sekadar menulis kode.'}</h2>
               <figure className="profile-figure">
                 <img
-                  src={dbProfile?.profilePhoto || '/assets/foto-profile.jpeg'}
+                  src={getAssetPath(dbProfile?.profilePhoto || '/assets/foto-profile.jpeg')}
                   width="560"
                   height="420"
                   alt={`Foto profil ${dbProfile?.fullName || "As'syahrin Nanda"}`}

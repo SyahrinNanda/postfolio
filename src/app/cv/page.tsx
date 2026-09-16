@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import BodyStyler from '@/components/BodyStyler';
+import { getAssetPath } from '@/lib/assets';
 import { DEFAULT_CV, DEFAULT_PROFILE, CvData, ProfileData, ExperienceData, ProjectData } from '@/components/admin/AdminContext';
 
 export default function CVPage() {
@@ -111,7 +112,7 @@ export default function CVPage() {
               </button>
               <a
                 className="button button-primary button-small"
-                href={cvData.fileUrl || '/assets/syahrin-nanda-cv.pdf'}
+                href={getAssetPath(cvData.fileUrl || '/assets/syahrin-nanda-cv.pdf')}
                 download={cvData.name || 'syahrin-nanda-cv.pdf'}
               >
                 Unduh PDF CV <span aria-hidden="true">↓</span>

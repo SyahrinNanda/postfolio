@@ -4,6 +4,7 @@ import { experienceList, educationList, careerStats, ExperienceEntry } from '@/l
 import BodyStyler from '@/components/BodyStyler';
 import type { Metadata } from 'next';
 import { db } from '@/db';
+import { getAssetPath } from '@/lib/assets';
 import { experiences as dbExperiencesTable } from '@/db/schema';
 import { asc, desc, eq } from 'drizzle-orm';
 
@@ -238,7 +239,7 @@ export default async function Experience() {
             <Link className="button button-primary" href="/cv">
               Lihat CV lengkap <span>→</span>
             </Link>
-            <a className="button button-ghost" href="/assets/syahrin-nanda-cv.pdf" download>
+            <a className="button button-ghost" href={getAssetPath("/assets/syahrin-nanda-cv.pdf")} download>
               Unduh CV demo <span>↓</span>
             </a>
           </Reveal>
