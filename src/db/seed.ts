@@ -12,14 +12,39 @@
  * - Settings defaults
  */
 
+import fs from "fs";
+import path from "path";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { nanoid } from "nanoid";
 import * as schema from "./schema";
 
-const sqlite = new Database("sqlite.db");
+const dbPath = process.env.DATABASE_FILE || "sqlite.db";
+const sqlite = new Database(dbPath);
 sqlite.pragma("journal_mode = WAL");
 sqlite.pragma("foreign_keys = ON");
+
+// Ensure tables exist before seeding
+const tableCheck = sqlite
+  .prepare("SELECT count(*) as count FROM sqlite_master WHERE type='table' AND name='profiles'")
+  .get() as { count: number };
+
+if (tableCheck.count === 0) {
+  console.log("📦 Creating database tables from migration...");
+  const sqlFile = path.join(process.cwd(), "drizzle", "0000_slippery_the_santerians.sql");
+  if (fs.existsSync(sqlFile)) {
+    const rawSql = fs.readFileSync(sqlFile, "utf-8");
+    const statements = rawSql
+      .split("--> statement-breakpoint")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+
+    for (const stmt of statements) {
+      sqlite.exec(stmt);
+    }
+    console.log(`✅ Created database schema (${statements.length} statements).`);
+  }
+}
 
 const db = drizzle({ client: sqlite, schema });
 
@@ -27,40 +52,27 @@ async function seed() {
   console.log("🌱 Seeding database...\n");
 
   // ========================================================================
-  // 1. Admin User (direct insert - Better Auth will hash password on login)
+  // 1. Admin User
   // ========================================================================
   const adminEmail = process.env.ADMIN_EMAIL || "admin@portfolio.com";
   const adminId = nanoid();
 
-  const existingUser = db
-    .select()
-    .from(schema.user)
-    .where(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (schema.user.email as any).equals
-        ? undefined
-        : undefined
-    )
-    .all();
-
-  // Check if admin already exists
   const existing = sqlite
     .prepare("SELECT id FROM user WHERE email = ?")
     .get(adminEmail) as { id: string } | undefined;
 
   if (!existing) {
     try {
-      const { auth } = await import("../lib/auth");
-      await auth.api.signUpEmail({
-        body: {
+      db.insert(schema.user)
+        .values({
+          id: adminId,
           name: "Syahri Nanda",
           email: adminEmail,
-          password: process.env.ADMIN_PASSWORD || "admin123",
-        },
-      });
-      console.log(`✅ Admin user & account created via Better Auth: ${adminEmail}`);
+        })
+        .run();
+      console.log(`✅ Admin user initialized: ${adminEmail}`);
     } catch (e: any) {
-      console.log(`ℹ️  Better Auth sign-up notice: ${e?.message || e}`);
+      console.log(`ℹ️  Admin user notice: ${e?.message || e}`);
     }
   } else {
     console.log(`ℹ️  Admin user already exists: ${adminEmail}`);
