@@ -3,12 +3,16 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "./schema";
 import * as relations from "./relations";
 
-const sqlite = new Database("sqlite.db");
+const isExport = process.env.NEXT_EXPORT === "true";
 
-// Enable WAL mode for better concurrent read performance
-sqlite.pragma("journal_mode = WAL");
-// Enable foreign key enforcement
-sqlite.pragma("foreign_keys = ON");
+const sqlite = new Database("sqlite.db", {
+  readonly: isExport,
+  fileMustExist: true,
+});
+
+if (!isExport) {
+  sqlite.pragma("foreign_keys = ON");
+}
 
 export const db = drizzle({
   client: sqlite,
