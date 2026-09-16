@@ -1,0 +1,80 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Setup Database & Seed
+        run: |
+          npm run db:push
+          npm run db:seed
+        env:
+          DATABASE_URL: "file:./sqlite.db"
+          BETTER_AUTH_SECRET: "github-pages-build-secret"
+          BETTER_AUTH_URL: "http://localhost:3000"
+          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+
+      - name: Isolate Public Pages for Static Export
+        # Memindahkan sementara route API & Admin agar Next.js static export tidak error
+        run: |
+          mkdir -p .temp_app
+          mv src/app/api .temp_app/api
+          mv src/app/admin .temp_app/admin
+
+      - name: Build & Export Static Site
+        run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_EXPORT: "true"
+
+      - name: Restore API & Admin folders
+        if: always()
+        run: |
+          mv .temp_app/api src/app/api
+          mv .temp_app/admin src/app/admin
+          rm -rf .temp_app
+
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
