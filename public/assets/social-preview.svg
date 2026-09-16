@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b0d12"/>
+  <circle cx="1060" cy="-10" r="360" fill="#7557dc" opacity=".34"/>
+  <circle cx="60" cy="680" r="330" fill="#b8f23f" opacity=".13"/>
+  <g opacity=".16" stroke="#8f96a3"><path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200M100 0v630M200 0v630M300 0v630M400 0v630M500 0v630M600 0v630M700 0v630M800 0v630M900 0v630M1000 0v630M1100 0v630"/></g>
+  <rect x="76" y="72" width="62" height="62" rx="15" fill="#b8f23f"/>
+  <text x="89" y="113" fill="#0b0d12" font-family="Arial,sans-serif" font-size="24" font-weight="700">AN</text>
+  <text x="158" y="112" fill="#f1f1ed" font-family="Arial,sans-serif" font-size="30" font-weight="700">syahrin.dev</text>
+  <text x="76" y="290" fill="#f1f1ed" font-family="Arial,sans-serif" font-size="78" font-weight="700">As'syahrin Nanda</text>
+  <text x="76" y="371" fill="#b8f23f" font-family="Arial,sans-serif" font-size="55" font-weight="700">Software Engineer</text>
+  <text x="80" y="443" fill="#a5abb5" font-family="Arial,sans-serif" font-size="28">Engineering thoughtful products, from idea to impact.</text>
+  <text x="80" y="558" fill="#757c87" font-family="monospace" font-size="19">MAKASSAR, INDONESIA  /  PRODUCT ENGINEERING  /  SYSTEM DESIGN</text>
+</svg>

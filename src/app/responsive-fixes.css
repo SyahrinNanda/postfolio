@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Responsive & UI Enhancements
+   - Prevents floating assistant button from overlapping footer text
+   - Mobile navigation dropdown for small screens (<= 900px)
+   ========================================================================== */
+
+/* Footer: ensure clean bottom cushion so floating assistant button never overlaps text */
+.public-footer {
+  padding-bottom: 75px !important;
+}
+
+/* Mobile navigation dropdown (<= 900px) */
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 42px !important;
+    height: 42px !important;
+    gap: 5px !important;
+    padding: 0 !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    z-index: 1001 !important;
+    transition: background 0.2s, border-color 0.2s !important;
+  }
+
+  .nav-toggle:hover {
+    border-color: var(--accent) !important;
+    background: rgba(184, 242, 63, 0.08) !important;
+  }
+
+  .nav-toggle span {
+    display: block !important;
+    width: 20px !important;
+    height: 2px !important;
+    background: #fff !important;
+    border-radius: 2px !important;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  .main-nav {
+    position: absolute !important;
+    top: 86px !important;
+    right: 20px !important;
+    display: none !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: min(260px, calc(100vw - 40px)) !important;
+    background: #141720 !important;
+    border: 1px solid #333a48 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+    padding: 18px !important;
+    z-index: 1000 !important;
+  }
+
+  .main-nav.open {
+    display: flex !important;
+  }
+
+  .main-nav a {
+    display: block !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    color: #c5cad2 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+  }
+
+  .main-nav a:hover,
+  .main-nav a.active,
+  .main-nav a[aria-current="page"] {
+    background: rgba(184, 242, 63, 0.1) !important;
+    color: var(--accent) !important;
+  }
+
+  .header-cta {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .assistant-launch {
+    right: 16px !important;
+    bottom: 16px !important;
+    padding: 10px 14px !important;
+    font-size: 10.5px !important;
+  }
+
+  .assistant-panel {
+    right: 12px !important;
+    bottom: 70px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 90px) !important;
+  }
+
+  .public-footer {
+    padding-bottom: 90px !important;
+  }
+}

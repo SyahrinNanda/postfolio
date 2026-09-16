@@ -1,0 +1,11 @@
+{
+  "name": "As'syahrin Nanda — Software Engineer",
+  "short_name": "syahrin.dev",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#b8f23f",
+  "icons": [
+    {"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}

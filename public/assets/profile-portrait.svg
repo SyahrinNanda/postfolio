@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="420" viewBox="0 0 560 420" role="img" aria-labelledby="title desc">
+  <title id="title">Ilustrasi software engineer</title>
+  <desc id="desc">Sosok software engineer duduk di depan layar kode dalam ruang kerja gelap.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1a1e27"/><stop offset="1" stop-color="#101219"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7557dc"/><stop offset="1" stop-color="#44309c"/></linearGradient>
+  </defs>
+  <rect width="560" height="420" rx="24" fill="url(#bg)"/>
+  <g opacity=".23" stroke="#8a929f"><path d="M0 70h560M0 140h560M0 210h560M0 280h560M0 350h560M70 0v420M140 0v420M210 0v420M280 0v420M350 0v420M420 0v420M490 0v420"/></g>
+  <circle cx="459" cy="68" r="92" fill="#b8f23f" opacity=".08"/>
+  <rect x="274" y="89" width="224" height="153" rx="12" fill="#0a0c11" stroke="#343b48" stroke-width="3"/>
+  <rect x="289" y="104" width="194" height="119" rx="6" fill="url(#screen)"/>
+  <g fill="none" stroke-linecap="round" stroke-width="5"><path d="M310 132h63" stroke="#b8f23f"/><path d="M310 151h126M310 170h96M310 189h145" stroke="#fff" opacity=".55"/></g>
+  <path d="M374 242v36M328 280h94" stroke="#656d7b" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="209" cy="159" rx="55" ry="65" fill="#ba7c58"/>
+  <path d="M153 161c2-56 24-88 69-79 32 6 49 31 43 67-17-15-31-38-37-54-14 28-38 48-75 66Z" fill="#12141a"/>
+  <path d="M164 214c28 19 61 18 87-2 51 22 76 68 77 141H86c4-77 28-119 78-139Z" fill="#7458dd"/>
+  <path d="m139 266 89 22 83-18 31 83H95l44-87Z" fill="#5c42c1"/>
+  <rect x="169" y="283" width="172" height="96" rx="8" fill="#0c0e13" stroke="#3b4250" stroke-width="3"/>
+  <path d="M239 331h32" stroke="#b8f23f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M48 356h464" stroke="#444b57" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="70" cy="78" r="9" fill="#b8f23f"/><path d="M70 95v69" stroke="#b8f23f" opacity=".45" stroke-dasharray="4 7"/>
+</svg>
