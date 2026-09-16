@@ -93,3 +93,4 @@ export const DEFAULT_PROFILE: ProfileData = {
     { value: '∞', label: 'Hal yang masih ingin dipelajari' },
   ],
 };
+
